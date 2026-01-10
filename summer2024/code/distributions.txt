@@ -1,0 +1,58 @@
+Roughly Gaussian:
+
+  DP03_0062E    med household income 0.4594404377203191
+  DP03_0025E    mean commute time 0.618595088600616
+  DP03_0088E    per capita income 0.5194737784337702
+
+  DP03_0034P    Construction 0.28251654371265433 
+  (close enough)
+  DP03_0042P    Educational services, and health care and social assistance 0.4661732772693486
+  DP03_0035P    Manufacturing 0.3096391493359421
+  (should we account for outliers?)
+  DP03_0044P    Other services, except public administration 0.2667619171917149
+  DP03_0037P    Retail trade 0.41006856983528667
+  DP03_0038P    Transportation and warehousing, and utilities 0.27496246847560707
+
+  DP04_0134E    median rent for occupied units (small spike at 0) 0.4952076889046435
+  (should we erase 0 values?)
+
+  DP05_0010P    25-34 years 0.38162183223999396
+  DP05_0011P    35-44 years 0.5493966811058091
+  DP05_0012P    45-54 years
+  DP05_0013P    55-59 years
+  DP05_0014P    60-64 years
+  DP05_0015P    65-74
+  DP05_0016P    75-84
+  (are these useful or no? will need to get all ages)
+  (and what about living in same area 1 year ago?)
+
+
+Not Gaussian (but not power law):
+
+  DP04_0089E    med value owner-occupied 0.3297789548544588
+
+  DP02_0081P    % residence different house 1 year ago 
+  DP02_0068P    % bachelor's degree or higher
+
+  DP03_0128P    % people whose income below poverty level
+
+  DP03_0043P    Arts, entertainment, and recreation, and accommodation and food services
+  DP03_0039P    Information
+  DP03_0045P    Public administration
+  DP03_0036P    Wholesale trade
+  DP03_0041P    Professional, scientific, and management, and administrative and waste management services
+
+  DP05_0009P    20 - 24 years
+
+power law:
+
+  DP02_0067P    % high school or higher (to the right)
+  
+  DP03_0119P    % **families** whose income below poverty level (unsure)
+  DP03_0033P    % 16+ industry Agriculture, forestry, fishing and hunting, and mining
+  DP03_0040P    Finance and insurance, and real estate and rental and leasing (maybe not)
+  DP03_0039P    Information 
+
+  DP05_0073P    % hispanic or latino population
+  DP05_0080P    % black or african american alone
+  DP05_0082P    % Asian alone

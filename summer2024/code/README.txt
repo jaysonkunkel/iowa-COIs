@@ -6,3 +6,14 @@ and also the reverse (which block group is a block in, which tract is a block gr
 .Rdata contains some helpful temp files
 
 .Rhistory has some console commands that I used to write to files (instead of lines of body code)
+
+distances.py calculates the distances from each node to each other node
+
+histograms.py shows you the distribution for a given statistic
+  - distributions.txt contains this information
+
+flat_clustering.py performs the first round of clustering
+
+remove_rural.py
+
+overlap.py
