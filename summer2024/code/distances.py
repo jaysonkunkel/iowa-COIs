@@ -55,11 +55,11 @@ def allbfs(G, mat):
 np.set_printoptions(suppress=True)
 
 # this is the JSON file with combined tract geography and census data
-input = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\tl_2022_19_tract_ss_2.json'
+input = './summer2024/util/tl_2022_19_tract_ss_2.json'
 # input = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\tl_2022_19_tabblock20.json'
 
 # will hold the all-to-all distance matrix
-output = "C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\tract_dists.txt"
+output = "./summer2024/util/tract_dists.txt"
 # output = "C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\block_dists.txt"
 
 file = open(input)
@@ -80,7 +80,7 @@ allbfs(tract_graph, mat)
 # default for savetxt and readtxt is float, so use %i for ints
 np.savetxt(output, mat, fmt="%i")
 
-pickle.dump(tract_graph, open('.\\tract_graph.pickle', 'wb'))
+pickle.dump(tract_graph, open('./summer2024/util/tract_graph.pickle', 'wb'))
 #-----------------------end main code----------------------------#
 
 
