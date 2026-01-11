@@ -8,7 +8,7 @@ import pickle
 
 # a custom function that just computes Euclidean distance
 # p1, p2 are 1D vectors specifying a pair of points
-def mydist(p1, p2, G=pickle.load(open('tract_graph.pickle', 'rb'))):
+def mydist(p1, p2, G=pickle.load(open('./summer2024/util/tract_graph.pickle', 'rb'))):
     # print(p1, p2)
 
     # only cluster if p1 and p2 represent adjacent points
@@ -24,12 +24,13 @@ def mydist(p1, p2, G=pickle.load(open('tract_graph.pickle', 'rb'))):
 np.set_printoptions(suppress=True)
 
 # json file with tract polygons and census data
-with open('C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\tl_2022_19_tract_ss_2.json', 'r') as dict:
+input = './summer2024/util/tl_2022_19_tract_ss_2.json'
+with open(input, 'r') as dict:
     tract_json = json.load(dict)
 
 # N x N matrix holding distances between tracts
 # run distances.py first to get mat
-tract_dists = np.loadtxt("C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\tract_dists.txt")
+tract_dists = np.loadtxt("./summer2024/util/tract_dists.txt")
 
 # how many tracts are there
 size = len(tract_json["tracts"])
@@ -123,11 +124,11 @@ if __name__ == "__main__":
 
 #-----------------------begin steps for gaussian distribution----------------------------#
     # begin gaussian
-    f = open("sd.txt", "a")
+    f = open("./summer2024/util/sd.txt", "a")
     f.seek(0)                        # <- This is the missing piece
     f.truncate()
 
-    np.savetxt("sd.txt", sd[:,1], fmt = '%i')
+    np.savetxt("./summer2024/util/sd.txt", sd[:,1], fmt = '%i')
     f.close()
 
     flat = fclusterdata(sd, 0.5, criterion='distance', metric=mydist)
@@ -157,7 +158,7 @@ if __name__ == "__main__":
         newrow = [i, flat[i]]
         C[i] = newrow
 
-    f = open("flatclusters.txt", "a")
+    f = open("./summer2024/util/flatclusters.txt", "a")
     f.seek(0)                        # <- This is the missing piece
     f.truncate()
 
@@ -166,7 +167,7 @@ if __name__ == "__main__":
     # 1. import flatclusters.txt to GIS software
     # 2. join flatclusters.txt with shapefile
     # 3. color map by Field2 (indicates flat cluster number)
-    np.savetxt("flatclusters.txt", C, fmt = '%i')
+    np.savetxt("./summer2024/util/flatclusters.txt", C, fmt = '%i')
     f.close()
 
     plt.hist(col, bins='auto')

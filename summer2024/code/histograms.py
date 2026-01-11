@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import json
 
 # json file with tract polygons and census data
-with open('C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\tl_2022_19_tract_ss_2.json', 'r') as dict:
+input = './summer2024/util/tl_2022_19_tract_ss_2.json'
+with open(input, 'r') as dict:
     tract_json = json.load(dict)
 
 # how many tracts are there
@@ -14,7 +15,9 @@ tracts = np.zeros([size, 2], dtype=np.float64)
 values = tracts[:, 1]
 
 # populate array with statistic values
+# ------------------------------------------------#
 stat = "DP03_0038P"
+# ------------------------------------------------#
 for i in range(size):
     newrow = [i, tract_json["tracts"][i][stat]]
     tracts[i] = newrow
