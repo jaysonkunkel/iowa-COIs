@@ -8,6 +8,7 @@ import pickle
 
 # a custom function that just computes Euclidean distance
 # p1, p2 are 1D vectors specifying a pair of points
+# G is the graph representation of the census tracts
 def mydist(p1, p2, G=pickle.load(open('./summer2024/util/tract_graph.pickle', 'rb'))):
     # print(p1, p2)
 
@@ -41,7 +42,7 @@ if __name__ == "__main__":
 
 
     # choose the given statistic you want to analyze
-    # use histograms.py to determine the distribution type
+    # use histograms.py or distributions.txt to determine the distribution for a given statistic
     stat = "DP03_0038P"
 
     # create an N x 2 matrix where A[n, 0] is the tract number and A[n, 1] is the value for the given statistic   
