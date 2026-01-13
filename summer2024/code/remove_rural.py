@@ -30,7 +30,7 @@ def find_overlap(statistic, rural_clusters):
     data.append(newrow)
 
 #-----------------------begin main code----------------------------#
-output_path = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\code\\clusters_tracts.csv'
+output_path = './summer2024/util/clusters_tracts.csv'
 
 # file to store information
 with open(output_path, 'r') as file:
@@ -42,7 +42,7 @@ with open(output_path, 'r') as file:
 statistic = "DP04_0134E"
 
 # indicates the giant "rural" cluster(s)
-# find this number in flatclusters.txt or in GIS
+# find the corresponding cluster number in flatclusters.txt or in GIS
 rural_clusters = [46]
 #-----------------------end manual input----------------------------#
 
@@ -62,7 +62,7 @@ tracts = flat[:,0]
 clusters = map(int, set(flat[:,1]))
 
 # json file with tract polygons and census data
-with open('C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\tl_2022_19_tract_ss_2.json', 'r') as dict:
+with open('./summer2024/util/tl_2022_19_tract_ss_2.json', 'r') as dict:
     tract_json = json.load(dict)
 
 find_overlap(statistic, rural_clusters)

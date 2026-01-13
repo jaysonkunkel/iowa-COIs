@@ -37,7 +37,7 @@ tract_dists = np.loadtxt("./summer2024/util/tract_dists.txt")
 size = len(tract_json["tracts"])
 
 #-----------------------begin main code----------------------------#
-# this code only runs if test.py is run
+# this code only runs if flat_clustering.py is run
 if __name__ == "__main__":        
 
 
