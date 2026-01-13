@@ -64,20 +64,21 @@ def find_overlap (source, target):
 
 #-----------------------begin main code----------------------------#    
 # source paths:
-# electric_path = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\Electrical_Service_Boundaries_Cleaned\\Electrical_Service_Boundaries_Cleaned.shp'
-# school_path = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\Iowa_School_Districts_2023-2024\\Iowa_School_Districts_2023-2024.shp'
-# city_path = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\City\\City.shp'
+# electric_path = './summer2024/shapefiles/Electrical_Service_Boundaries_Cleaned/Electrical_Service_Boundaries_Cleaned.shp'
+# school_path = './summer2024/shapefiles/Iowa_School_Districts_2023-2024/Iowa_School_Districts_2023-2024.shp'
+# city_path = './summer2024/shapefiles/IA_municipalities/IA_municipalities.shp'
 
 # target path:
-# tract_path = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\tl_2022_19_tract_ss_2\\tl_2022_19_tract_ss_2.shp'
+# tract_path = './summer2024/shapefiles/tl_2022_19_tract_ss_2/tl_2022_19_tract_ss_2.shp'
 
 # shapefile to read from
-source_path = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\City\\City.shp'
+source_path = './summer2024/shapefiles/IA_municipalities/IA_municipalities.shp'
 
-target_path = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\shapefiles\\tl_2022_19_tract_ss_2\\tl_2022_19_tract_ss_2.shp'
+#shapefile we are overlapping with
+target_path = './summer2024/shapefiles/tl_2022_19_tract_ss_2/tl_2022_19_tract_ss_2.shp'
 
 # where we write information
-output_path = 'C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\code\\clusters_tracts.csv'
+output_path = './summer2024/util/clusters_tracts.csv'
 
 # geodataframes to hold input
 source_gdf = gpd.read_file(source_path)
@@ -96,6 +97,17 @@ with open(output_path, 'r') as file:
     csv_reader = csv.reader(file)
     data = list(csv_reader)
 
+find_overlap(source_gdf, target_gdf)
+
+# write information to file
+with open(output_path, 'w', newline='') as file:
+  writer = csv.writer(file)
+  writer.writerows(data)
+#-----------------------end main code----------------------------#
+
+# when finished, make sure to clean up the csv file - remove brackets and commas
+
+# ---------------------------------------------------------------#
 # with open('c:\\Users\\jayso\\OneDrive\\Documents\\tracts_to_blocks.csv') as file:
 #     csv_reader = csv.reader(file)
 #     blocks = list(csv_reader)
@@ -128,16 +140,7 @@ with open(output_path, 'r') as file:
 #           # print(f"   Intersects these tracts: {attributes2[target_attr]}\n")
 #           newrow = [statistic, attributes1[source_attr], attributes2[target_attr], blocks[index2]]
 #           data.append(newrow)
-    
+# ---------------------------------------------------------------#
 
-find_overlap(source_gdf, target_gdf)
-
-# write information to file
-with open(output_path, 'w', newline='') as file:
-  writer = csv.writer(file)
-  writer.writerows(data)
-#-----------------------end main code----------------------------#
-
-# when finished, clean up csv file - remove brackets and commas
 
 

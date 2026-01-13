@@ -2,8 +2,8 @@ import numpy as np
 import csv
 import json
 
-# this is step 1
-# step 2 is overlap.py
+# this is step 1 - adding which tracts are in the census statistics
+# step 2 is overlap.py - adding the tracts for the other shapefiles
 
 def find_overlap(statistic, rural_clusters):
   # for each flat cluster
@@ -46,10 +46,6 @@ statistic = "DP04_0134E"
 rural_clusters = [46]
 #-----------------------end manual input----------------------------#
 
-# with open('c:\\Users\\jayso\\OneDrive\\Documents\\tracts_to_blocks.csv', 'r') as file:
-#     csv_reader = csv.reader(file)
-#     blocks = list(csv_reader)
-
 # flat clusters
 input_path = open('flatclusters.txt')
 flat = np.loadtxt(input_path).copy()
@@ -72,5 +68,10 @@ find_overlap(statistic, rural_clusters)
 with open(output_path, 'w', newline='') as file:
   writer = csv.writer(file)
   writer.writerows(data)
+
+# ---------------------------------------------------------------#
+# with open('c:\\Users\\jayso\\OneDrive\\Documents\\tracts_to_blocks.csv', 'r') as file:
+#     csv_reader = csv.reader(file)
+#     blocks = list(csv_reader)
 
 
