@@ -12,8 +12,10 @@ distances.py calculates the distances from each node to each other node
 histograms.py shows you the distribution for a given statistic
   - distributions.txt contains this information
 
-flat_clustering.py performs the first round of clustering
+flatclustering_census.py performs the first round of clustering on census data
 
-remove_rural.py
+remove_rural.py removes large, state-wide rural clusters and finds the census tracts within clusters
 
-overlap.py
+overlap.py finds the census tracts within non-census boundaries
+
+flatclustering_all performs the second round of clustering on all 'communities' using mhd
