@@ -1,10 +1,11 @@
-import test
 import csv
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 import json
 import scipy
+from scipy.cluster.hierarchy import fcluster
+
 
 # suppress scientific notation
 np.set_printoptions(suppress=True)
@@ -13,7 +14,7 @@ np.set_printoptions(suppress=True)
 # step 4 is mhd.py
 
 input = "./summer2024/util/tract_dists.txt"
-mat = np.loadtxt(input)
+tract_dists = np.loadtxt(input)
 
 with open('./summer2024/util/geoid_index.json', 'r') as file:
   geoids = json.load(file)
@@ -25,14 +26,14 @@ with open('./summer2024/util/clusters_tracts.csv', 'r') as file:
 #-----------------------mhd definitions----------------------------#
 # distance between two census tracts
 def tract_to_tract (a, b):
-    return mat[a, b]
+    return tract_dists[a, b]
 
 # distance between a tract and a region
 def tract_to_cluster(a, B):
     min = np.inf
     for b in B:
         b = geoids.get(b)
-        dist = mat[a, b]
+        dist = tract_dists[a, b]
         if dist < min:
             min = dist
     return min
@@ -59,6 +60,7 @@ def heatmap(A, B):
   return mhd_clusters(tracts1, tracts2)
 #---------------------------------------------------#
 
+#-----------------------start of linkage----------------------------#
 ## I needed two columns of indices because the linkage function kept getting mad
 # afaik it only needs the first column because I'm using that to index
 # len clusters is the number of regions we found
@@ -67,7 +69,7 @@ for i in range(len(clusters)):
   newrow = [i, i]
   huh[i] = newrow
 
-
+# can maybe skip this step?
 Z = scipy.cluster.hierarchy.linkage(huh, method='complete', metric=heatmap)
 
 output = './summer2024/util/heatmap_linkage.txt'
@@ -78,8 +80,38 @@ f.truncate()
 
 np.savetxt(output, Z, fmt = '%i')
 f.close()
+#-----------------------end of linkage----------------------------#
+
 
 # print(Z)
+
+#-----------------------start of flatclustering----------------------------#
+# load the linkage array
+Z = np.loadtxt("./summer2024/util/heatmap_linkage.txt")
+
+# t = max clusters
+# 327 (number of school districts) generated 205 clusters
+# 50 generated 44 flat clusters
+t = round(50)
+
+# generate flat clusters
+flat = fcluster(Z, t, criterion='maxclust')
+
+# C is the flatclusters + an index column
+C = np.zeros([len(clusters), 2], dtype=np.int16)
+for i in range(len(clusters)):
+    newrow = [i, flat[i]]
+    C[i] = newrow
+
+f = open("./summer2024/util/heatmap_flatclusters.txt", "a")
+f.seek(0)                        # <- This is the missing piece
+f.truncate()
+np.savetxt(f, C, fmt='%i')
+f.close()
+
+# how many flatclusters we end up with
+print(len(set(C[:,1])))
+#-----------------------end of flatclustering----------------------------#
 
 
 

@@ -4,17 +4,17 @@ from networkx import Graph
 from scipy.cluster.hierarchy import dendrogram, linkage, fcluster
 from matplotlib import pyplot as plt
 import csv
-from test import size
+from flatclustering_census import size
 import json
 import pandas as pd
 
 # this is step 2
-# step 1 is heat_map.py
+# step 1 is flatclustering_mhd.py
 
 # read matrix from file
 # distances between all tracts
 input = "./summer2024/util/tract_dists.txt"
-mat = np.loadtxt(input)
+tract_dists = np.loadtxt(input)
 
 with open('./summer2024/util/clusters_tracts.csv', 'r') as file:
   csv_reader = csv.reader(file)
@@ -51,33 +51,7 @@ with open('./summer2024/util/geoid_index.json', 'r') as file:
 # for row in S:
 #   print(row)
 
-#-----------------------start of flatclustering----------------------------#
-# load the linkage array
-Z = np.loadtxt("./summer2024/util/heatmap_linkage.txt")
-
-# # max clusters - in this case number of school districts
-# # 327 - number of school districts - generated 205 clusters
-t = round(50)
-# 20
-
-# generate flat clusters
-flat = fcluster(Z, t, criterion='maxclust')
-
-# C is the flatclusters + an index column
-C = np.zeros([len(clusters), 2], dtype=np.int16)
-for i in range(len(clusters)):
-    newrow = [i, flat[i]]
-    C[i] = newrow
-
-f = open("heatmap_flatclusters.txt", "a")
-f.seek(0)                        # <- This is the missing piece
-f.truncate()
-np.savetxt(f, C, fmt='%i')
-f.close()
-
-print(len(set(C[:,1])))
-#-----------------------end of flatclustering----------------------------#
-
+#---------------------------------------------------#
 # # **begin individual symbology
 
 # # i'm only checking a specific cluster
@@ -137,16 +111,17 @@ print(len(set(C[:,1])))
 # f.close()
 
 # ** end individual symbology
+#---------------------------------------------------#
 
 # **begin all tracts symbology
 
 # i'm only checking a specific cluster
 # reminder to look for region-1 in flatclusters because the regions dont have a 0-indexed column in the csv file
 # this will hold every region marked as cluster "test"
-with open('C:\\Users\\jayso\\OneDrive\\Desktop\\MAP\\code\\heatmap_flatclusters.txt', 'r') as file:
+with open('./summer2024/util/heatmap_flatclusters.txt', 'r') as file:
   flatclusters = np.loadtxt(file)
 
-data = open('test.csv', 'w+')
+data = open('./summer2024/util/test.csv', 'w+')
 writer = csv.writer(data)
 header = ['ID']
 for c in (set(flatclusters[:,1])):
@@ -216,7 +191,7 @@ data.close()
 # ** end all tracts symbology
 
 
-#---------------------------------------------------------------#
+#---------------------------old mhd notes------------------------------------#
 # fig = plt.figure(figsize=(25, 10))
 # dn = dendrogram(Z)
 # plt.show()
@@ -234,12 +209,12 @@ data.close()
     # That will give us a sense of how many regions overlapped in what areas of the community that were used to define the community.
 
 # def tract_to_tract (a, b):
-#     return mat[a, b]
+#     return tract_dists[a, b]
 
 # def tract_to_cluster(a, B):
 #     min = np.inf
 #     for b in B:
-#         dist = mat[a, b]
+#         dist = tract_dists[a, b]
 #         if dist < min:
 #             min = dist
 #     return min
