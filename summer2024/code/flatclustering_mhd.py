@@ -103,14 +103,16 @@ for i in range(len(clusters)):
     newrow = [i, flat[i]]
     C[i] = newrow
 
-f = open("./summer2024/util/heatmap_flatclusters.txt", "a")
+num_flatclusters = len(set(C[:,1]))
+
+f = open("./summer2024/util/heatmap_flatclusters_{num}.txt".format(num = num_flatclusters), "a")
 f.seek(0)                        # <- This is the missing piece
 f.truncate()
 np.savetxt(f, C, fmt='%i')
 f.close()
 
 # how many flatclusters we end up with
-print(len(set(C[:,1])))
+# print(len(set(C[:,1])))
 #-----------------------end of flatclustering----------------------------#
 
 

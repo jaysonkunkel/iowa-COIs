@@ -5,6 +5,7 @@ from scipy.cluster.hierarchy import dendrogram, linkage, fcluster
 from matplotlib import pyplot as plt
 import csv
 from flatclustering_census import size
+from flatclustering_mhd import num_flatclusters
 import json
 import pandas as pd
 
@@ -118,7 +119,7 @@ with open('./summer2024/util/geoid_index.json', 'r') as file:
 # i'm only checking a specific cluster
 # reminder to look for region-1 in flatclusters because the regions dont have a 0-indexed column in the csv file
 # this will hold every region marked as cluster "test"
-with open('./summer2024/util/heatmap_flatclusters.txt', 'r') as file:
+with open("./summer2024/util/heatmap_flatclusters_{num}.txt".format(num = num_flatclusters), 'r') as file:
   flatclusters = np.loadtxt(file)
 
 data = open('./summer2024/util/test.csv', 'w+')
