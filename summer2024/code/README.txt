@@ -18,4 +18,8 @@ remove_rural.py removes large, state-wide rural clusters and finds the census tr
 
 overlap.py finds the census tracts within non-census boundaries
 
-flatclustering_all performs the second round of clustering on all 'communities' using mhd
+----------------------------------------------------------------------------
+flatclustering_mhd.py performs the second round of clustering on all 'communities' using mhd
+
+iowa_cois.py generates the csv file (output) used to create the heatmap symbology
+----------------------------------------------------------------------------
