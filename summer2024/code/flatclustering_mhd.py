@@ -92,7 +92,7 @@ Z = np.loadtxt("./summer2024/util/heatmap_linkage.txt")
 # t = max clusters
 # 327 (number of school districts) generated 205 clusters
 # 50 generated 44 flat clusters
-t = round(50)
+t = round(100)
 
 # generate flat clusters
 flat = fcluster(Z, t, criterion='maxclust')

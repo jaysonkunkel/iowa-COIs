@@ -122,8 +122,8 @@ with open('./summer2024/util/geoid_index.json', 'r') as file:
 with open("./summer2024/util/heatmap_flatclusters_{num}.txt".format(num = num_flatclusters), 'r') as file:
   flatclusters = np.loadtxt(file)
 
-data = open('./summer2024/util/test.csv', 'w+')
-writer = csv.writer(data)
+cois = open('./summer2024/output/iowa_cois_{num}.csv'.format(num = num_flatclusters), 'w+')
+writer = csv.writer(cois)
 header = ['ID']
 for c in (set(flatclusters[:,1])):
   header.append("Cluster " + str(int(c)))
@@ -180,8 +180,14 @@ def all_counts(test=int):
 for c in set(flatclusters[:,1]):
   all_counts(c)
 
-np.savetxt(data, A, comments='', fmt='%i', delimiter=',', header=','.join(header))
-data.close()
+np.savetxt(cois, A, comments='', fmt='%i', delimiter=',', header=','.join(header))
+cois.close()
+
+#---------------------------------------------------------------#
+# join the generated csv file with your tract shapefile
+# then you can isolate the features by cluster number and apply a graduated symbology to get a heat map
+#---------------------------------------------------------------#
+
 
 
 # f = open("heatmap_symbology_alltracts.txt", 'a')
